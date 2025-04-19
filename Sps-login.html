@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radhe Radhe Organization - Member Management</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background-color: #ff9933;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .login-form, .dashboard {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #ff9933;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e68a2e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #ff9933;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #ff9933;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+        .logout {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Radhe Radhe Organization Member Management</h1>
+    </div>
+
+    <!-- Login Section -->
+    <div class="container" id="loginSection">
+        <div class="login-form">
+            <h2>Member Login</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div class="container hidden" id="dashboardSection">
+        <div class="logout">
+            <button onclick="logout()">Logout</button>
+        </div>
+        <h2>Member Dashboard</h2>
+        
+        <div class="nav">
+            <a href="#" onclick="showSection('members')">Members List</a>
+            <a href="#" onclick="showSection('addMember')">Add New Member</a>
+            <a href="#" onclick="showSection('reports')">Reports</a>
+        </div>
+        
+        <!-- Members List Section -->
+        <div id="members">
+            <h3>Organization Members</h3>
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Search members..." onkeyup="searchMembers()">
+            </div>
+            <table id="membersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Join Date</th>
+                    </tr>
+                </thead>
+                <tbody id="membersList">
+                    <!-- Members will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Add Member Section -->
+        <div id="addMember" class="hidden">
+            <h3>Add New Member</h3>
+            <div class="form-group">
+                <label for="memberName">Full Name:</label>
+                <input type="text" id="memberName" placeholder="Enter member's full name">
+            </div>
+            <div class="form-group">
+                <label for="memberEmail">Email:</label>
+                <input type="email" id="memberEmail" placeholder="Enter member's email">
+            </div>
+            <div class="form-group">
+                <label for="memberPhone">Phone:</label>
+                <input type="text" id="memberPhone" placeholder="Enter member's phone number">
+            </div>
+            <div class="form-group">
+                <label for="memberAddress">Address:</label>
+                <input type="text" id="memberAddress" placeholder="Enter member's address">
+            </div>
+            <button onclick="addMember()">Add Member</button>
+        </div>
+        
+        <!-- Reports Section -->
+        <div id="reports" class="hidden">
+            <h3>Reports</h3>
+            <div class="report-card">
+                <h4>Total Members: <span id="totalMembers">0</span></h4>
+                <h4>New Members This Month: <span id="newMembers">0</span></h4>
+            </div>
+            <button onclick="generateReport()">Generate Full Report</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - in a real app, this would come from a database
+        let members = [
+            { id: 'RADHE001', name: 'Krishna Das', email: 'krishna@radhe.org', phone: '9876543210', joinDate: '2023-01-15' },
+            { id: 'RADHE002', name: 'Radha Sharma', email: 'radha@radhe.org', phone: '8765432109', joinDate: '2023-02-20' },
+            { id: 'RADHE003', name: 'Gopal Patel', email: 'gopal@radhe.org', phone: '7654321098', joinDate: '2023-03-10' },
+            { id: 'RADHE004', name: 'Yashoda Devi', email: 'yashoda@radhe.org', phone: '6543210987', joinDate: '2023-04-05' }
+        ];
+
+        // Login function
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation - in real app, check against database
+            if (username && password) {
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('dashboardSection').classList.remove('hidden');
+                loadMembers();
+                updateReports();
+            } else {
+                alert('Please enter both username and password');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Show different sections
+        function showSection(sectionId) {
+            document.getElementById('members').classList.add('hidden');
+            document.getElementById('addMember').classList.add('hidden');
+            document.getElementById('reports').classList.add('hidden');
+            
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // Load members into the table
+        function loadMembers() {
+            const tableBody = document.getElementById('membersList');
+            tableBody.innerHTML = '';
+            
+            members.forEach(member => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.id}</td>
+                    <td>${member.name}</td>
+                    <td>${member.email}</td>
+                    <td>${member.phone}</td>
+                    <td>${member.joinDate}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Search members
+        function searchMembers() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#membersList tr');
+            
+            rows.forEach(row => {
+                const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                if (name.includes(input) || email.includes(input)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Add new member
+        function addMember() {
+            const name = document.getElementById('memberName').value;
+            const email = document.getElementById('memberEmail').value;
+            const phone = document.getElementById('memberPhone').value;
+            const address = document.getElementById('memberAddress').value;
+            
+            if (name && email) {
+                // Generate unique ID
+                const newId = 'RADHE' + (100 + members.length + 1);
+                const today = new Date().toISOString().split('T')[0];
+                
+                // Add to members array
+                members.push({
+                    id: newId,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    joinDate: today
+                });
+                
+                // Clear form
+                document.getElementById('memberName').value = '';
+                document.getElementById('memberEmail').value = '';
+                document.getElementById('memberPhone').value = '';
+                document.getElementById('memberAddress').value = '';
+                
+                // Reload members and update reports
+                loadMembers();
+                updateReports();
+                showSection('members');
+                
+                alert(`New member added successfully with ID: ${newId}`);
+            } else {
+                alert('Name and Email are required fields');
+            }
+        }
+
+        // Update report numbers
+        function updateReports() {
+            document.getElementById('totalMembers').textContent = members.length;
+            
+            const thisMonth = new Date().getMonth();
+            const newMembersCount = members.filter(member => {
+                const joinMonth = new Date(member.joinDate).getMonth();
+                return joinMonth === thisMonth;
+            }).length;
+            
+            document.getElementById('newMembers').textContent = newMembersCount;
+        }
+
+        // Generate report
+        function generateReport() {
+            alert('Report generated with ' + members.length + ' members.\nThis would typically export to PDF/Excel in a real application.');
+        }
+
+        // Initialize - show members section by default when logged in
+        function showSection(sectionId) {
+            document.getElementById('members').classList.add('hidden');
+            document.getElementById('addMember').classList.add('hidden');
+            document.getElementById('reports').classList.add('hidden');
+            
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
