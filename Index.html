@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Tools Hub - PDF, Excel & Image Utilities</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .hero p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+            padding-right: 120px;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card p {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-btn {
+            background: #3498db;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">ToolHub</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Your All-in-One Digital Toolbox</h1>
+        <p>Convert, edit, and optimize PDFs, Excel files, and images with ease</p>
+        
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for tools...">
+            <button class="search-btn">Search</button>
+        </div>
+    </section>
+
+    <main class="tools-grid">
+        <!-- PDF Tools -->
+        <div class="tool-card">
+            <i class="tool-icon fas fa-file-pdf"></i>
+            <h3>PDF Tools</h3>
+            <p>Comprehensive PDF solutions for all your needs</p>
+            <div class="tool-list">
+                <p>PDF to Word</p>
+                <p>PDF Merge</p>
+                <p>PDF Split</p>
+            </div>
+            <button class="cta-btn">Explore PDF Tools</button>
+        </div>
+
+        <!-- Excel Tools -->
+        <div class="tool-card">
+            <i class="tool-icon fas fa-file-excel"></i>
+            <h3>Excel Tools</h3>
+            <p>Powerful spreadsheet manipulation tools</p>
+            <div class="tool-list">
+                <p>CSV to Excel</p>
+                <p>Excel to PDF</p>
+                <p>Data Analysis</p>
+            </div>
+            <button class="cta-btn">Explore Excel Tools</button>
+        </div>
+
+        <!-- Image Tools -->
+        <div class="tool-card">
+            <i class="tool-icon fas fa-image"></i>
+            <h3>Image Tools</h3>
+            <p>Advanced image processing utilities</p>
+            <div class="tool-list">
+                <p>Image Converter</p>
+                <p>Photo Editor</p>
+                <p>Compression</p>
+            </div>
+            <button class="cta-btn">Explore Image Tools</button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Tool Categories</h4>
+                <a href="#pdf">PDF Tools</a>
+                <a href="#excel">Excel Tools</a>
+                <a href="#image">Image Tools</a>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="#about">About Us</a>
+                <a href="#blog">Blog</a>
+                <a href="#careers">Careers</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="#help">Help Center</a>
+                <a href="#contact">Contact</a>
+                <a href="#faq">FAQs</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
